@@ -6,10 +6,13 @@ public sealed partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+
+        var parsecConnectionTracker = new ParsecConnectionTracker();
+        parsecConnectionTracker.ConnectionStatusChanged += ParsecConnectionTracker_ConnectionStatusChanged;
     }
 
-    private void myButton_Click(object sender, RoutedEventArgs e)
+    private void ParsecConnectionTracker_ConnectionStatusChanged(object? sender, ConnectionStatusChangedEventArgs e)
     {
-        myButton.Content = "Clicked";
+        throw new System.NotImplementedException();
     }
 }

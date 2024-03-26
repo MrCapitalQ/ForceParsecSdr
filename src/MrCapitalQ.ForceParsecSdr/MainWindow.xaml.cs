@@ -1,3 +1,4 @@
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using System;
 using Windows.ApplicationModel;
@@ -12,10 +13,18 @@ public sealed partial class MainWindow : Window
     {
         InitializeComponent();
 
+        AppWindow.Closing += AppWindow_Closing;
+
         var parsecConnectionTracker = new ParsecConnectionTracker();
         parsecConnectionTracker.ConnectionStatusChanged += ParsecConnectionTracker_ConnectionStatusChanged;
 
         UpdateStartupState();
+    }
+
+    private void AppWindow_Closing(AppWindow sender, AppWindowClosingEventArgs args)
+    {
+        sender.Hide();
+        args.Cancel = true;
     }
 
     private void ParsecConnectionTracker_ConnectionStatusChanged(object? sender, ConnectionStatusChangedEventArgs e)

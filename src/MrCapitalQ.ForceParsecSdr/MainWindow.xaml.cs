@@ -13,6 +13,7 @@ public sealed partial class MainWindow : Window
 
     private void ParsecConnectionTracker_ConnectionStatusChanged(object? sender, ConnectionStatusChangedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        if (HdrHelper.IsHdrAvailable())
+            HdrHelper.SetHdrState(!e.IsConnected);
     }
 }

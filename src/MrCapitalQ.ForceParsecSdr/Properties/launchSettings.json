@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MrCapitalQ.ForceParsecSdr (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "MrCapitalQ.ForceParsecSdr (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

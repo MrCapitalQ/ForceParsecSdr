@@ -7,8 +7,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d">
 
-    <StackPanel Orientation="Horizontal"
+    <StackPanel Orientation="Vertical"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
+        <TextBlock x:Name="InfoTextBlock"
+                   Margin="0,0,0,16" />
+        <ToggleSwitch x:Name="StartupSwitch"
+                      Header="Run at startup"
+                      IsEnabled="False"
+                      Toggled="StartupSwitch_Toggled" />
     </StackPanel>
 </Window>

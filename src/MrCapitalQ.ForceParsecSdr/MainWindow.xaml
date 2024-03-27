@@ -3,18 +3,37 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="using:MrCapitalQ.ForceParsecSdr"
+        xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
+        xmlns:ui="using:CommunityToolkit.WinUI"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
 
-    <StackPanel Orientation="Vertical"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center">
-        <TextBlock x:Name="InfoTextBlock"
-                   Margin="0,0,0,16" />
-        <ToggleSwitch x:Name="StartupSwitch"
-                      Header="Run at startup"
-                      IsEnabled="False"
-                      Toggled="StartupSwitch_Toggled" />
-    </StackPanel>
+    <Grid Margin="0,32,0,0"
+          Grid.RowDefinitions="Auto,*">
+        <TextBlock Text="Settings"
+                   Style="{ThemeResource TitleTextBlockStyle}"
+                   Margin="16,0,16,16" />
+        <ScrollViewer Grid.Row="1">
+            <StackPanel HorizontalAlignment="Stretch"
+                        MaxWidth="1000"
+                        Margin="16,0,16,16">
+                <InfoBar x:Name="StartupWarning"
+                         IsOpen="True"
+                         Severity="Warning"
+                         Visibility="Collapsed" />
+                <toolkit:SettingsCard x:Name="StartupSettingsCard"
+                                      Header="Startup"
+                                      HeaderIcon="{ui:FontIcon Glyph=&#xE7B5;}"
+                                      Description="Start automatically in the background when you sign in">
+                    <ToggleSwitch x:Name="StartupSwitch"
+                                  IsEnabled="False"
+                                  Toggled="StartupSwitch_Toggled" />
+                </toolkit:SettingsCard>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </Window>

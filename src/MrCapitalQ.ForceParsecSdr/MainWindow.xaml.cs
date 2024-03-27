@@ -13,6 +13,9 @@ public sealed partial class MainWindow : Window
     {
         InitializeComponent();
 
+        ExtendsContentIntoTitleBar = true;
+        AppWindow.Resize(new(600, 400));
+
         AppWindow.Closing += AppWindow_Closing;
 
         var parsecConnectionTracker = new ParsecConnectionTracker();
@@ -35,31 +38,32 @@ public sealed partial class MainWindow : Window
 
     private async void UpdateStartupState()
     {
+        StartupWarning.Visibility = Visibility.Collapsed;
         var isStartupEnabled = false;
-        var isStartupEnablable = true;
+        var isStartupSettable = true;
 
         var startupTask = await StartupTask.GetAsync(StartupTaskId);
         switch (startupTask.State)
         {
             case StartupTaskState.DisabledByUser:
-                InfoTextBlock.Text = "You have disabled this app's ability to run at startup. Re-enable this in the Startup tab in Task Manager.";
-                isStartupEnablable = false;
+                StartupWarning.Visibility = Visibility.Visible;
+                StartupWarning.Message = "You have disabled this app's ability to run at startup. Re-enable this in the Startup tab in Task Manager.";
+                isStartupSettable = false;
                 break;
             case StartupTaskState.DisabledByPolicy:
-                InfoTextBlock.Text = "Startup is disabled by group policy or not supported on this device";
-                isStartupEnablable = false;
+                StartupWarning.Visibility = Visibility.Visible;
+                StartupWarning.Message = "Startup is disabled by group policy or not supported on this device";
+                isStartupSettable = false;
                 break;
             case StartupTaskState.Disabled:
-                InfoTextBlock.Text = "The app will not automatically run at startup.";
                 break;
             case StartupTaskState.Enabled:
-                InfoTextBlock.Text = "The app will automatically run at startup.";
                 isStartupEnabled = true;
                 break;
         }
 
         StartupSwitch.IsOn = isStartupEnabled;
-        StartupSwitch.IsEnabled = isStartupEnablable;
+        StartupSwitch.IsEnabled = isStartupSettable;
     }
 
     private async void StartupSwitch_Toggled(object sender, RoutedEventArgs e)
